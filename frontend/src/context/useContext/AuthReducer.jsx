@@ -2,13 +2,13 @@ const AuthReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN_START":
             return {
-                user: null,
+                user: false,
                 isFetching: true,
                 error: false
             }
         case "LOGIN_SUCCESS":
             return {
-                user: action.payload,
+                user: true,
                 isFetching: false,
                 error: false
             }

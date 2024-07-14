@@ -3,10 +3,9 @@ import img1 from '../../assets/pexels-edmond-dantes-4344677.jpg';
 import img2 from '../../assets/pexels-n-voitkevich-6214471.jpg';
 import img3 from '../../assets/pexels-rocsana99-948185.jpg';
 // import { loginCall } from '../../context/customHooks/Api';
-
+import google from '../../assets/New folder/google.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
 // import { AuthContext } from '../../context/customHooks/AuthContext';
 import { toast } from 'react-toastify';
 
@@ -17,8 +16,13 @@ const images = [img1, img2, img3];
 
 function Login() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+ 
+ 
   // const { user, isFetching, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
+  const handleGoogleSignup = () => {
+    window.location.href = 'http://localhost:8003/api/auth/google';
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -54,11 +58,7 @@ function Login() {
       console.log(response);
       const token = response.data
       console.log(token);
-      if (response.status === 201) {
-       
-        // const token = response.data.token;
-        // const decodedToken = jwt.decode(token);
-        // console.log('Decoded JWT Token:', decodedToken);
+      if (response.data.message === "login successful") {
         navigate('/home');
       } else {
         alert('Login failed. Please check your credentials and try again.');
@@ -136,8 +136,8 @@ function Login() {
             {/* {isFetching ? "Signing in..." :"Sign in"} */}
             Sign in
           </button>
-          <button className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
-            <img src="google.svg" alt="img" className="w-6 h-6 inline mr-2" />
+          <button className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white" onClick={handleGoogleSignup}>
+            <img src={google} alt="img" className="w-6 h-6 inline mr-2"/>
             Sign in with Google
           </button>
           <div className="text-center text-gray-400">

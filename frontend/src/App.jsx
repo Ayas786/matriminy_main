@@ -31,8 +31,10 @@ function App() {
     <Router>
       <Routes> 
         {/* <Route path="/" element={user ? <Home /> : <Login />} /> */}
-        <Route path="/home" element={<Home/>} />
+        {/* / is only needed if login is successfull home else login */}
+        <Route path="/home" element={<Home/>} /> 
         <Route path="/" element={<Login />} />
+        {/* if it is user home or if user no register*/}
         <Route path="/register/:userId" element={<Register />} />
         <Route path="/google" element={<Google />} />
         <Route path="/EmploymentSelectionPage/:userRefId_ER" element={<EmploymentSelectionPage />} />
@@ -41,8 +43,10 @@ function App() {
         <Route path="/jobseekerRegistration/:userRefId_EeR" element={<JobSeekerRegistration />} />
         <Route path="/LongTermShortTermSelection" element={<LongTermShortTermSelection />} />
         <Route path="/ContinueOptionPage" element={<ContinueOptionPage />} />
+           {/* / matrimony profile is needed if profile is found matrimonyHome else profileRegistration*/}
         <Route path="/ProfileRegistration" element={<ProfileRegistration />} />
         <Route path="/matrimonyHome" element={<MatrimonyHome />} />
+
         <Route path="/matches" element={<FilterPage />} />
         <Route path='/activities' element={<Activity/>}/>
         <Route path='/sent'element={<Sent/>}/>

@@ -26,7 +26,7 @@ function SingleUserPage() {
         <div className="rounded overflow-hidden shadow-lg p-4">
           <img className="w-full mb-4" src={user.imageUrl || 'default-image-url.jpg'} alt="Profile" />
           <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{user.name}</div>
+            <div className="font-bold text-xl mb-2">{user.firstName}</div>
             <p className="text-gray-700 text-base">Age: {user.age}</p>
             <p className="text-gray-700 text-base">State: {user.state}</p>
             <p className="text-gray-700 text-base">District: {user.district}</p>

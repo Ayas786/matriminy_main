@@ -1,5 +1,8 @@
 import axios from "axios";
+import { useState } from "react";
 import { toast } from "react-toastify";
+
+const [data,setData] = useState(null)
 export const loginCall = async(user,dispatch)=>{
     dispatch({type:"LOGIN_START"}); 
     try{

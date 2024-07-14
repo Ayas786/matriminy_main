@@ -3,7 +3,7 @@ import passport from "passport"
 import twilio from 'twilio'
 import dotenv from 'dotenv'
 import jwt from "jsonwebtoken"
-import {Login, Register, getUserData, otp_sent, verify_otp} from "../controllers/authControl.js"
+import {Login, Register, getUserData, logOut, otp_sent, refreshToken, verify_otp} from "../controllers/authControl.js"
 import { verifyToken, verifyUser } from "../utils/verifyToken.js"
 import { createError } from "../utils/error.js"
 
@@ -18,12 +18,16 @@ const otps = {};
 
 router.post('/login', Login)
 
-router.put('/register/:userId', Register)
+router.post('/refreshToken',refreshToken)
 
+router.put('/register/:id', Register)
+ 
 //dummy token verification
-router.get('/checkauthenticated',verifyToken,(req,res,next)=>{
-    res.json({message:"you are authenticated",user:req.user})
+router.get('/authenticatedUserId',verifyToken,(req,res,next)=>{
+    console.log(req.user);
+    res.status(200).json({message:"you are authenticated",user:req.user})
 })
+
 
 router.get('/checkUserAuthentication/:id',verifyUser,(req,res,next)=>{
     try {
@@ -42,10 +46,8 @@ router.get('/checkAdminAuthentication',verifyUser,(req,res,next)=>{
     }
     
 })
-//for dummy purpose
-router.post('/register')
 
-router.get('/user/:userId',verifyUser,getUserData);
+router.get('/user/:userId',getUserData);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -54,7 +56,6 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:8003/api/auth/login' }),
     (req, res) => {
-        const isNew = req.user.isNew; 
         const userId = req.user.user._id;
         const user = req.user.user;
         console.log(user);
@@ -63,7 +64,7 @@ router.get('/google/callback',
         const token = jwt.sign({
             userId
         },
-        process.env.JWT, // Make sure to use the correct environment variable
+        process.env.JWT, 
         {expiresIn: '3h'}
     );
         if (user.password==="") {
@@ -81,5 +82,7 @@ router.get('/google/callback',
 router.post('/send-otp',otp_sent)
 
 router.post('/verify-otp',verify_otp);
+
+router.post('/logout',logOut)
 
 export default router;

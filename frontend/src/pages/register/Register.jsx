@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const steps = ['Account', 'Personal', 'OTP Verification', 'Finish'];
 
@@ -93,12 +94,12 @@ const Register = () => {
       console.log(response.data);
       if (response.data.message === 'OTP send successfully') {
         setOtpSent(true);
-        alert('OTP sent successfully');
+        toast.success('OTP sent successful');
       } else {
-        alert('Failed to send OTP. Please try again.');
+        toast.error('Failed to send OTP. Please try again.');
       }
     } catch (error) {
-      alert('Failed to send OTP. Please try again.');
+      toast.error('Please give the phone number');
       console.error('OTP sending error:', error);
     }
   };
@@ -109,32 +110,35 @@ const Register = () => {
       console.log(response);
       if (response.data.message === 'Verification successful') {
         setOtpVerified(true);
-        alert('OTP verified successfully');
+        toast.success('OTP verified successfully');
       } else {
-        alert('Invalid OTP. Please try again.');
+        toast.error('Invalid OTP. Please try again.');
       }
     } catch (error) {
-      alert('Invalid OTP. Please try again2.');
+      toast.error('Invalid OTP. Please try again2.');
       console.error('OTP verification error:', error);
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () => { 
     if (!otpVerified) {
-      alert('Please verify the OTP before submitting the form.');
+      toast.error('Please verify the OTP before submitting the form.');
       return;
     }
 
     try {
       const { otp, ...otherDetails } = formData
-      const response = await axios.put('http://localhost:8003/api/auth/register/:userId', otherDetails);
-      if (response.status === 200) {
+      console.log(otherDetails);
+      const response = await axios.put(`http://localhost:8003/api/auth/register/${userId}`, otherDetails);
+      console.log(response);
+      if (response.data.message==="User updated successfully") {
+        toast.success('Register successfully');
         navigate(`/EmploymentSelectionPage/${userId}`);
       } else {
-        alert('Registration failed. Please try again.');
+        toast.error('Registration failed. Please try again.');
       }
     } catch (error) {
-      alert('Registration failed. Please try again.');
+      toast.error('Registration failed. Please try again.');
       console.error('Registration error:', error);
     }
   };

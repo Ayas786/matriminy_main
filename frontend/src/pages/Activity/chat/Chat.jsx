@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../../../components/header/Header'
+import ChatApp from './ChatApp'
 
 function Chat() {
     const navigate = useNavigate()
@@ -48,6 +49,7 @@ function Chat() {
           </div>
         </div>
         </div>
+        <ChatApp/>
     </div>
   )
 }

@@ -1,31 +1,61 @@
-import React, { useContext } from 'react'
-import Header from '../../components/header/Header';
-import { AuthContext } from '../../context/customHooks/AuthContext';
-import './activity.css'
-import RequestList from './RequestList';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Header from '../../components/header/Header';
+import RequestList from './RequestList';
+import useFetch from '../../context/customHooks/useFetch';
+import { Circles } from 'react-loader-spinner';
+import './activity.css';
 
 function Activity() {
-  const navigate = useNavigate()
-  const onClickRequest =()=>{
-    navigate('/activities')
-  }
+  const navigate = useNavigate();
+  const [userID, setUserID] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [requests, setRequests] = useState(null);
+  const { data, loading, error } = useFetch('http://localhost:8003/api/auth/authenticatedUserId', {
+    withCredentials: true
+  });
 
-  const onClickSent = ()=>{
-    navigate('/sent')
-  }
+  useEffect(() => {
+   setUserID(data.user)
+  }, [data]);
 
-  const onClickAccept =()=>{
-    navigate('/accept')
-  }
+  console.log(userID);
 
-  const onClickReject = ()=>{
-    navigate('/reject')
-  }
+  useEffect(() => {
+    const findProfileIdByUserId = async () => {
+      if (userID) {
+        try {
+          const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfileByUserID/${userID}`, {
+            withCredentials: true
+          });
+          setProfile(response.data);
+        } catch (error) {
+          console.error('Failed to fetch profile:', error);
+        }
+      }
+    };
+    findProfileIdByUserId();
+    if(profile){
+      const findReceviedRequest = async()=>{
+        try{
+          const response = await axios.get(`http://localhost:8003/api/matrimony/profile/listOfRequests/${profile}`,{
+            withCredentials:true
+          })
+          setRequests(response.data)
+        }catch(error){
+          console.error('Failed to fetch profile:', error);
+        }
+      }
+      findReceviedRequest()
+    }
+  }, [userID,profile]);
 
-  const onClickChat=()=>{
-    navigate('/chat')
-  }
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+ 
   return (
     <div>
       <Header />
@@ -33,19 +63,19 @@ function Activity() {
         <div className='subheaderMain'>
           <div className="subheader">
             <div className='subdiv'>
-              <span className='activeTag' onClick={onClickRequest}>Request</span>
+              <span className='activeTag' onClick={() => handleNavigation('/activities')}>Request</span>
             </div>
             <div>
-              <span onClick={onClickSent}>Sent</span>
+              <span onClick={() => handleNavigation('/sent')}>Sent</span>
             </div>
             <div>
-              <span onClick={onClickAccept}>Accepted</span>
+              <span onClick={() => handleNavigation('/accept')}>Accepted</span>
             </div>
             <div>
-              <span onClick={onClickReject}>Reject</span>
+              <span onClick={() => handleNavigation('/reject')}>Reject</span>
             </div>
             <div>
-              <span onClick={onClickChat}>Chat</span>
+              <span onClick={() => handleNavigation('/chat')}>Chat</span>
             </div>
           </div>
         </div>
@@ -53,20 +83,29 @@ function Activity() {
         <div className="content-box">
           <div className='subContent-BoxContainer'>
             <div className='subContent-Box'>
-              <RequestList />
-              <RequestList />
-              <RequestList />
-              <RequestList />
-              <RequestList />
+            {requests ? (
+                requests.map((requests, index) => (
+                  <RequestList key={index} request={requests} />
+                ))
+              ) : (
+                <div className="loader-container">
+                  <Circles
+                    height="100"
+                    width="100"
+                    color="black"
+                    ariaLabel="circles-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
-
       </div>
-
-
     </div>
-  )
+  );
 }
 
-export default Activity
+export default Activity;

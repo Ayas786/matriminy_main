@@ -9,17 +9,17 @@ export const verifyToken = (req,res,next)=>{
     }
     jwt.verify(token,process.env.JWT,(err,user)=>{
         if(err){
-            return next(createError(403,'token is not vaild'))
+            return next(createError(403,'token is not vaild')) 
         }
-        req.user = user
-        //this will go to next operation
+        console.log(req.user);
+        req.user = user.id
         next()
     })
 }
 
 export const verifyUser = (req, res, next) => {
     verifyToken(req, res, () => {
-      if (req.user.id === req.params.userId) {
+      if (req.user === req.params.id) {
         next()
       } else {
         return next(
@@ -31,16 +31,16 @@ export const verifyUser = (req, res, next) => {
 
   export const verifyProfile = (req,res,next)=>{
     verifyToken(req,res,async()=>{
-      const userRefId = req.user.id
+      const userRefId = req.user
       const profileId = req.params.id
       console.log(userRefId);
-      const findProfileWithUserId = await Profile.findOne({
+      console.log(profileId);
+      const findProfileWithUserId = await Profile.findOne({ 
         $and: [
         {userId : userRefId},
         {_id : profileId}
         ]
       })
-      console.log(findProfileWithUserId);
       if(findProfileWithUserId){
         next()
       }else{
@@ -62,3 +62,6 @@ export const verifyUser = (req, res, next) => {
       }
     })
   }
+
+  
+  
