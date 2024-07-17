@@ -11,7 +11,7 @@ export const verifyToken = (req,res,next)=>{
         if(err){
             return next(createError(403,'token is not vaild')) 
         }
-        console.log(req.user);
+        console.log("user data extracted by token",user.id);
         req.user = user.id
         next()
     })

@@ -20,7 +20,7 @@ function Activity() {
    setUserID(data.user)
   }, [data]);
 
-  console.log(userID);
+  console.log("userId",userID);
 
   useEffect(() => {
     const findProfileIdByUserId = async () => {
@@ -50,6 +50,8 @@ function Activity() {
       findReceviedRequest()
     }
   }, [userID,profile]);
+
+  console.log("profileData");
 
 
   const handleNavigation = (path) => {

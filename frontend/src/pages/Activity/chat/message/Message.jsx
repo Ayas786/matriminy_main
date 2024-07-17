@@ -1,14 +1,15 @@
 import React from 'react'
 import propic from '../../../../assets/profile/OIP.jpg'
-
-function Message({own}) {
+import { formatDistanceToNow } from 'date-fns';
+function Message({message,own}) {
+  
   return (
-    <div className={own ? "message own":"message"}>
+    <div className={own ? "message":"message own"}>
         <div className="messageTop">
             <img src={propic} alt="" className='messageImage'/>
-           <p className='messageText'> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero quod impedit</p>
+           <p className='messageText'>{message.text}</p>
         </div>
-        <div className="messageBottom">1 hour ago</div>
+        <div className="messageBottom">{formatDistanceToNow(message.createdAt)} ago</div>
     </div>
   )
 }

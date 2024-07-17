@@ -18,7 +18,6 @@ function AcceptList({ accept, currentProfileId }) {
   useEffect(() => {
     const fetchProfileData = async () => {
       if (!profileId) return;
-
       setLoading(true);
       try {
         const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfile/${profileId}`);

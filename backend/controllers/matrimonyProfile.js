@@ -1,5 +1,6 @@
 
 import MatrimonyProfileconnection from "../models/ConnectedProfile.js";
+import ConversationMembers from "../models/conversation.js";
 import Profile from "../models/MatrimonyProfile.js";
 
 export const createProfile = async (req, res) => {
@@ -136,14 +137,16 @@ export const canelSentRequest = async (req, res) => {
 
 
 export const acceptRequest = async (req, res) => {
-    // const { requestFromId } = req.body;
-    // const { requestToId } = req.body;
-    // console.log("requestFromId", requestFromId);
-    // console.log("requestToId", requestToId);
-    const requestToId = req.params.id
-    const { requestFromId } = req.body
+    const requestToId = req.params.id;
+    const { requestFromId } = req.body;
+
+    // Validate input
+    if (!requestFromId || !requestToId) {
+        return res.status(400).json({ message: "Invalid request parameters" });
+    }
 
     try {
+        // Find the connection request
         const findConnectionRequest = await MatrimonyProfileconnection.findOne({ fromUID: requestFromId, toUID: requestToId });
         console.log("findConnectionRequest", findConnectionRequest);
 
@@ -152,14 +155,22 @@ export const acceptRequest = async (req, res) => {
         }
 
         if (findConnectionRequest.status === "pending") {
+            // Update the request status to accepted
             findConnectionRequest.status = "accepted";
             await findConnectionRequest.save();
+
+            // Create a new conversation for the accepted request
+            const newConversation = new ConversationMembers({
+                members: [findConnectionRequest.fromUID, findConnectionRequest.toUID]
+            });
+            await newConversation.save();
+
             return res.status(200).json({ message: "Request accepted successfully" });
         } else {
             return res.status(400).json({ message: "Connection request is already accepted or rejected" });
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({ message: "Server error" });
     }
 };
