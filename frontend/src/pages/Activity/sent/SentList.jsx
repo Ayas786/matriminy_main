@@ -7,7 +7,7 @@ function SentList({ request }) {
   const [requestData, setRequestData] = useState({})
   useEffect(() => {
     const findProfileOfFromUser = async () => {
-      const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfile/${request.toUID}`)
+      const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfile/${request.toUID}`)
       setRequestData(response.data)
     }
     findProfileOfFromUser()

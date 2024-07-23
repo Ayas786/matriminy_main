@@ -36,7 +36,7 @@ const JobSeekerRegistration = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8003/api/jobseeker/createJobSeeker', formData);
+            const response = await axios.post('http://localhost:8083/api/jobseeker/createJobSeeker', formData);
             console.log('Job seeker registered:', response.data);
             navigate('/LongTermShortTermSelection')
 

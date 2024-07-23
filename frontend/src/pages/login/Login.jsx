@@ -21,7 +21,7 @@ function Login() {
   // const { user, isFetching, error, dispatch } = useContext(AuthContext);
   const navigate = useNavigate()
   const handleGoogleSignup = () => {
-    window.location.href = 'http://localhost:8003/api/auth/google';
+    window.location.href = 'http://localhost:8083/api/auth/google';
   };
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,7 +54,7 @@ function Login() {
     try {
       const loginData = loginMethod === 'phone' ? { phoneNumber, password } : { email, password };
       console.log(loginData);
-      const response = await axios.post('http://localhost:8003/api/auth/login', loginData, { withCredentials: true });
+      const response = await axios.post('http://localhost:8083/api/auth/login', loginData, { withCredentials: true });
       console.log(response);
       const token = response.data
       console.log(token);

@@ -8,7 +8,7 @@ import ChatApp from './ChatApp';
 function Chat() {
     const navigate = useNavigate();;
     const [loggedUserProfileId, setLoggedUserProfileId] = useState(null);
-    const { data } = useFetch('http://localhost:8003/api/auth/authenticatedUserId', {
+    const { data } = useFetch('http://localhost:8083/api/auth/authenticatedUserId', {
         withCredentials: true
     });
 
@@ -16,7 +16,7 @@ function Chat() {
         const fetchUserProfile = async () => {
             if (data.user) {
                 try {
-                    const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfileByUserID/${data.user}`, {
+                    const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfileByUserID/${data.user}`, {
                         withCredentials: true
                     });
                     setLoggedUserProfileId(response.data);

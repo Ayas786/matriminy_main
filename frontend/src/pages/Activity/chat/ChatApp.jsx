@@ -54,7 +54,7 @@ function ChatApp({ currentUserProfileId }) {
     useEffect(() => {
         const getConversationsArray = async () => {
             try {
-                const response = await axios.get(`http://localhost:8003/api/matrimony/conversation/getCurrentUserConversation/${currentUserProfileId}`);
+                const response = await axios.get(`http://localhost:8083/api/matrimony/conversation/getCurrentUserConversation/${currentUserProfileId}`);
                 // console.log("getConversationsArray", response.data);
                 setConversationArray(response.data);
             } catch (error) {
@@ -72,7 +72,7 @@ function ChatApp({ currentUserProfileId }) {
         const getMessages = async () => {
             setLoadingMessages(true);
             try {
-                const response = await axios.get(`http://localhost:8003/api/matrimony/messages/${currentChat?._id}`);
+                const response = await axios.get(`http://localhost:8083/api/matrimony/messages/${currentChat?._id}`);
                 setMessages(response.data)
             } catch (error) {
                 console.error('Failed to fetch messages:', error);
@@ -119,7 +119,7 @@ function ChatApp({ currentUserProfileId }) {
     
         try {
             console.log("req body for send message", message);
-            const response = await axios.post(`http://localhost:8003/api/matrimony/messages/${currentUserProfileId}`, message);
+            const response = await axios.post(`http://localhost:8083/api/matrimony/messages/${currentUserProfileId}`, message);
             setMessages([...messages, response.data]);
             console.log('Message sent:', response.data);
             setNewMessages('');

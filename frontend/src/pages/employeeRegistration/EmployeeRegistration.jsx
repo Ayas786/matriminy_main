@@ -41,7 +41,7 @@ const EmployeeRegistration = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8003/api/employee/createEmployee', formData);
+            const response = await axios.post('http://localhost:8083/api/employee/createEmployee', formData);
             console.log('Employee registered:', response.data);
             navigate('/LongTermShortTermSelection')
         } catch (error) {

@@ -37,7 +37,7 @@ const Register = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8003/api/auth/user/${userId}`);
+        const response = await axios.get(`http://localhost:8083/api/auth/user/${userId}`);
         console.log(response.data);
         setFormData({
           email: response.data.email || '',
@@ -90,7 +90,7 @@ const Register = () => {
 
   const sendOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8003/api/auth/send-otp', { phoneNumber: formData.phno });
+      const response = await axios.post('http://localhost:8083/api/auth/send-otp', { phoneNumber: formData.phno });
       console.log(response.data);
       if (response.data.message === 'OTP send successfully') {
         setOtpSent(true);
@@ -106,7 +106,7 @@ const Register = () => {
 
   const verifyOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:8003/api/auth/verify-otp', { phoneNumber: formData.phno, otp: formData.otp });
+      const response = await axios.post('http://localhost:8083/api/auth/verify-otp', { phoneNumber: formData.phno, otp: formData.otp });
       console.log(response);
       if (response.data.message === 'Verification successful') {
         setOtpVerified(true);
@@ -129,7 +129,7 @@ const Register = () => {
     try {
       const { otp, ...otherDetails } = formData
       console.log(otherDetails);
-      const response = await axios.put(`http://localhost:8003/api/auth/register/${userId}`, otherDetails);
+      const response = await axios.put(`http://localhost:8083/api/auth/register/${userId}`, otherDetails);
       console.log(response);
       if (response.data.message==="User updated successfully") {
         toast.success('Register successfully');

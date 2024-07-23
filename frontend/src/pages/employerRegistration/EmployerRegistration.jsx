@@ -26,7 +26,7 @@ const EmployerRegistration = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8003/api/employer/createEmployer', formData);
+            const response = await axios.post('http://localhost:8083/api/employer/createEmployer', formData);
             console.log('Employer registered:', response.data);
             navigate('/LongTermShortTermSelection')
             // Optionally, you can redirect or show a success message here

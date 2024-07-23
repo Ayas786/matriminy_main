@@ -11,7 +11,7 @@ function Sent() {
   const [userID, setUserID] = useState(null);
   const [profile, setProfile] = useState(null);
   const [requests, setRequests] = useState(null);
-  const { data, loading, error } = useFetch('http://localhost:8003/api/auth/authenticatedUserId', {
+  const { data, loading, error } = useFetch('http://localhost:8083/api/auth/authenticatedUserId', {
     withCredentials: true
   });
 
@@ -24,7 +24,7 @@ function Sent() {
     const findProfileIdByUserId = async () => {
       if (userID) {
         try {
-          const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfileByUserID/${userID}`, {
+          const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfileByUserID/${userID}`, {
             withCredentials: true
           });
           setProfile(response.data);
@@ -37,7 +37,7 @@ function Sent() {
     if(profile){
       const findReceviedRequest = async()=>{
         try{
-          const response = await axios.get(`http://localhost:8003/api/matrimony/profile/listOfSentRequest/${profile}`,{
+          const response = await axios.get(`http://localhost:8083/api/matrimony/profile/listOfSentRequest/${profile}`,{
             withCredentials:true
           })
           setRequests(response.data)

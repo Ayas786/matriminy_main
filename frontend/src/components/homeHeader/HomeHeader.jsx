@@ -15,7 +15,7 @@ function Homeheader() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:8003/api/auth/logout', {}, { withCredentials: true });
+      await axios.post('http://localhost:8083/api/auth/logout', {}, { withCredentials: true });
       toast.success('Logged out successfully');
       navigate('/');
     } catch (error) {

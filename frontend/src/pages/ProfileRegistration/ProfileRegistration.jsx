@@ -45,7 +45,7 @@ const ProfileRegistration = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:8003/api/matrimony/profile/createProfile', formData);
+      const response = await axios.post('http://localhost:8083/api/matrimony/profile/createProfile', formData);
       console.log('Profile created:', response.data);
       navigate('/success');
     } catch (error) {

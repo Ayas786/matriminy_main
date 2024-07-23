@@ -6,7 +6,7 @@ function Google() {
   const navigate = useNavigate();
 
   const handleGoogleSignup = () => {
-    window.location.href = 'http://localhost:8003/api/auth/google';
+    window.location.href = 'http://localhost:8083/api/auth/google';
   };
 
   return (

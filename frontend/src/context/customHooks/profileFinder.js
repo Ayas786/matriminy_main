@@ -11,7 +11,7 @@ const profileFinder = (userID) => {
       if (userID) {
         setLoading(true);
         try {
-          const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfileByUserID/${userID}`, {
+          const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfileByUserID/${userID}`, {
             withCredentials: true
           });
           setProfile(response.data);

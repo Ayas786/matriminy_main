@@ -9,7 +9,7 @@ function SingleUserPage() {
     useEffect(()=>{
         const FetchUserData = async ()=>{
           try {
-            const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfile/${singleUID}`)
+            const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfile/${singleUID}`)
             setUser(response.data)
           } catch (error) {
             console.log(error);

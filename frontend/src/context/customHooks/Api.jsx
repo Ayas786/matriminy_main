@@ -7,7 +7,7 @@ export const loginCall = async(user,dispatch)=>{
     dispatch({type:"LOGIN_START"}); 
     try{
         if (res.status === 201) {
-          const res = await axios.post("http://localhost:8003/api/auth/login",user);
+          const res = await axios.post("http://localhost:8083/api/auth/login",user);
             dispatch({type:"LOGIN_SUCCESS",payload:res.data});
             toast.success('Login successful');
           } else{

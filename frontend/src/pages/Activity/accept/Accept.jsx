@@ -11,7 +11,7 @@ function Accept() {
     const [userID, setUserID] = useState(null);
     const [profile, setProfile] = useState(null);
     const [acceptedList, setAcceptedList] = useState(null);
-    const { data, loading, error } = useFetch('http://localhost:8003/api/auth/authenticatedUserId', {
+    const { data, loading, error } = useFetch('http://localhost:8083/api/auth/authenticatedUserId', {
       withCredentials: true
     });
 
@@ -23,7 +23,7 @@ function Accept() {
       const findProfileIdByUserId = async () => {
         if (userID) {
           try {
-            const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfileByUserID/${userID}`, {
+            const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfileByUserID/${userID}`, {
               withCredentials: true
             });
             setProfile(response.data);
@@ -36,7 +36,7 @@ function Accept() {
       if(profile){
         const findReceviedRequest = async()=>{
           try{
-            const response = await axios.get(`http://localhost:8003/api/matrimony/profile/listOfAccepted/${profile}`,{
+            const response = await axios.get(`http://localhost:8083/api/matrimony/profile/listOfAccepted/${profile}`,{
               withCredentials:true
             })
             setAcceptedList(response.data)

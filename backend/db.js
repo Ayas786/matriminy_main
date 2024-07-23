@@ -1,18 +1,14 @@
+
+
 import mongoose from "mongoose";
-
-const connect = async () => {
+const connect = async()=>{
     try {
-      await mongoose.connect(process.env.MONGO_DB, {
-        serverSelectionTimeoutMS:30000,
-        connectTimeoutMS: 30000, // 30 seconds
-      });
-      console.log('SUCCESSFULLY CONNECTED TO THE DATABASE $$$$');
+        await mongoose.connect('mongodb+srv://achurehman786:OPPiFJO5sstZm3XI@cluster2.pmmthue.mongodb.net/ayas?retryWrites=true&w=majority&appName=Cluster2')
+        console.log("SUCCESSFULLY CONNECTED TO THE DATABASE $$$$");
     } catch (err) {
-      console.error('Failed to connect to MongoDB:', err.message);
-      console.error('Error details:', err);
+        console.log("Something went Wrong Somewhere!!!,",err);
     }
-  };
+}
 
-
-  export default connect
-  
+// module.exports=connect
+export default connect

@@ -17,7 +17,7 @@ function ConnectedAcceptedPeopleList({ accept, userProfileId }) {
         const fetchProfileDataOfOtherUser = async () => {
             if (otherUserProfileId) {
                 try {
-                    const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfile/${otherUserProfileId}`);
+                    const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfile/${otherUserProfileId}`);
                     setOtherUserProfileData(response.data);
                 } catch (error) {
                     console.error('Failed to fetch profile:', error);

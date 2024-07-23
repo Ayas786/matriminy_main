@@ -20,7 +20,7 @@ function AcceptList({ accept, currentProfileId }) {
       if (!profileId) return;
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:8003/api/matrimony/profile/getProfile/${profileId}`);
+        const response = await axios.get(`http://localhost:8083/api/matrimony/profile/getProfile/${profileId}`);
         setProfileData(response.data);
         setError(null);
       } catch (err) {

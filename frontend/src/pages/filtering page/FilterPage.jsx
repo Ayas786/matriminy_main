@@ -25,7 +25,7 @@ const FilterPage = () => {
   const sortedData = async (e) => {
     e.preventDefault();
     try {
-      const filterData = await axios.get(`http://localhost:8003/api/matrimony/profile/searchProfiles?minAge=${filters.minAge}&maxAge=${filters.maxAge}&state=${filters.state}&district=${filters.district}&profession=${filters.profession}&qualification=${filters.qualification}`, filters)
+      const filterData = await axios.get(`http://localhost:8083/api/matrimony/profile/searchProfiles?minAge=${filters.minAge}&maxAge=${filters.maxAge}&state=${filters.state}&district=${filters.district}&profession=${filters.profession}&qualification=${filters.qualification}`, filters)
       console.log('filtered successfully done', filterData.data);
       setListedData(filterData.data)
     } catch (error) {

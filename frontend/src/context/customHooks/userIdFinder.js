@@ -4,7 +4,7 @@ import useFetch from './useFetch';
 
 const userIDFinder = () => {
   const [userID, setUserID] = useState(null);
-  const { data, loading, error } = useFetch('http://localhost:8003/api/auth/authenticatedUserId', {
+  const { data, loading, error } = useFetch('http://localhost:8083/api/auth/authenticatedUserId', {
     withCredentials: true
   });
 
