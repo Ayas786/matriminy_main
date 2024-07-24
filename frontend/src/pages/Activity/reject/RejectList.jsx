@@ -10,16 +10,16 @@ function RejectList() {
                     <div className="user-details">
                    
                      <div>
-                        <p>Name: Akash</p>
-                        <p>Profession: BCA</p>
+                        <p>Name: Ayas</p>
+                        <p>Profession: BTech</p>
                      </div>
                       <div>
                         <p>Age: 21</p>
                         <p>Qualification: IT</p>
                       </div>
                      <div>
-                        <p>Caste: Ezhava</p>
-                        <p>Religion: Hindu</p>
+                        <p>Caste: Sunni</p>
+                        <p>Religion: Muslim</p>
                      </div>
                     </div>
                     <div className="actions">

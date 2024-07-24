@@ -8,7 +8,7 @@ function ChatOnline() {
                 <img src={propic} alt="profile" className="chatOnlineImg" />
                 <div className="chatOnlineBadge"></div>
             </div>
-            <span className="chatOnlineName">John Doe</span>
+            <span className="chatOnlineName">Asif</span>
         </div>
   )
 }
